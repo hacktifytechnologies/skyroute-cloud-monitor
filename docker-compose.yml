@@ -1,0 +1,34 @@
+services:
+  web:
+    build: .
+    ports:
+      - "${APP_PORT:-8083}:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      - DB_HOST=db
+      - DB_NAME=skyroute
+      - DB_USER=dev_user
+      - DB_PASS=dev_pass
+    depends_on:
+      - db
+    networks:
+      - cloud-net
+
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: skyroute
+      MYSQL_USER: dev_user
+      MYSQL_PASSWORD: dev_pass
+    volumes:
+      - ./database.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - cloud-net
+
+networks:
+  cloud-net:
+    driver: bridge
