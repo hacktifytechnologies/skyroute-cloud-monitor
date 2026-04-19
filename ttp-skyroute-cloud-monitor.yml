@@ -1,11 +1,11 @@
-- name: 'HACKTIFY: Setup SkyRoute Cloud Monitor Lab'
+- name: 'HACKTIFY: Setup skyroute cloud monitor Lab'
   id: 285961da-5321-79e8-4bd7-3d57e7d98f8d
   description: >-
     A cloud infrastructure monitoring platform is running on port 8083. The
     platform provides authenticated access to a service diagnostic tool that
     checks the status of cloud endpoints. Log in using available credentials
     and locate the diagnostic feature. Investigate what the server does when
-    you supply a URL for it to check — specifically whether the server makes
+    you supply a URL for it to check, specifically whether the server makes
     that request itself and whether internal services can be reached through
     it. Your objective is to retrieve a sensitive internal admin key from a
     service not directly accessible from outside.
@@ -19,16 +19,13 @@
     - name: sh
       platform: linux
       command: |
-        git clone https://github.com/hacktifytechnologies/skyroute-cloud-monitor /opt/hacktify/skyroute-cloud-monitor
-        cd /opt/hacktify/skyroute-cloud-monitor
-        chmod +x setup.sh
-        bash setup.sh -a
+        git clone https://github.com/hacktifytechnologies/skyroute-cloud-monitor /opt/hacktify/skyroute-cloud-monitor && cd /opt/hacktify/skyroute-cloud-monitor && docker compose up -d --build && echo 'Lab deployment complete'
       code: null
       language: null
       build_target: null
       payloads: []
       uploads: []
-      timeout: 300
+      timeout: 600
       parsers: []
       cleanup: []
       variations: []
