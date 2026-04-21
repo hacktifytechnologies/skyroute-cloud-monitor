@@ -1,21 +1,20 @@
 services:
   web:
+    image: hacktifytechnologies/skyroute:1.0
+    container_name: skyroute
     ports:
-      - "${APP_PORT:-8083}:80"
-    volumes:
-      - .:/var/www/html
+      - "8083:80"
     environment:
-      - DB_HOST=db
-      - DB_NAME=skyroute
-      - DB_USER=dev_user
-      - DB_PASS=dev_pass
+      DB_HOST: db
+      DB_NAME: skyroute
+      DB_USER: dev_user
+      DB_PASS: dev_pass
     depends_on:
       - db
-    networks:
-      - cloud-net
 
   db:
     image: mysql:8.0
+    container_name: skyroute-mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
@@ -25,9 +24,5 @@ services:
       MYSQL_PASSWORD: dev_pass
     volumes:
       - ./database.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - cloud-net
-
-networks:
-  cloud-net:
-    driver: bridge
+    ports:
+      - "3308:3306"
