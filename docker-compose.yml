@@ -1,6 +1,5 @@
 services:
   web:
-    build: .
     ports:
       - "${APP_PORT:-8083}:80"
     volumes:
